@@ -23,9 +23,14 @@ const IndexScreen = ({ navigation }) => {
 
   return (
     <View>
-      <TouchableOpacity style={styles.addBtn} onPress={() => addBlog()}>
-        <Text style={styles.textLight} >Add blog</Text>
-      </TouchableOpacity>
+      <View style={{flexDirection: 'row', justifyContent: 'center'}} >
+        <TouchableOpacity style={{...styles.addBtn, marginRight: 5}} onPress={() => addBlog()}>
+          <Text style={styles.textLight} >Add blog</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.addBtn} onPress={() => navigation.navigate('Create')}>
+          <Text style={styles.textLight} >Create blog</Text>
+        </TouchableOpacity>
+      </View>
       <FlatList keyExtractor={(item) => item.title} data={state} renderItem={({ item }) => singlePost(item)} />
     </View>
   )
@@ -48,7 +53,6 @@ const styles = StyleSheet.create({
     color: 'red'
   },
   addBtn: {
-    width: 125,
     padding: 12,
     alignSelf: 'center',
     marginTop: 8,
