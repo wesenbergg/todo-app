@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext } from 'react'
 import { Text, View, StyleSheet } from 'react-native'
 import { Context } from '../context/BlogContext'
 import { FlatList, TouchableOpacity } from 'react-native-gesture-handler'
@@ -23,17 +23,18 @@ const IndexScreen = ({ navigation }) => {
 
   return (
     <View>
-      <View style={{flexDirection: 'row', justifyContent: 'center'}} >
-        <TouchableOpacity style={{...styles.addBtn, marginRight: 5}} onPress={() => addBlog()}>
-          <Text style={styles.textLight} >Add blog</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.addBtn} onPress={() => navigation.navigate('Create')}>
-          <Text style={styles.textLight} >Create blog</Text>
-        </TouchableOpacity>
-      </View>
       <FlatList keyExtractor={(item) => item.title} data={state} renderItem={({ item }) => singlePost(item)} />
     </View>
   )
+}
+
+IndexScreen.navigationOptions = ({ navigation }) => {
+  return {
+    headerRight: () => (
+    <TouchableOpacity onPress={() => navigation.navigate('Create')}>
+      <Feather name='plus' style={styles.add} />
+    </TouchableOpacity>)
+  }
 }
 
 const styles = StyleSheet.create({
@@ -63,6 +64,11 @@ const styles = StyleSheet.create({
   textLight: {
     fontSize: 20,
     color: 'white'
+  },
+  add: {
+    fontSize: 24,
+    marginRight: 8,
+    color: 'grey'
   }
 })
 
